@@ -1,0 +1,78 @@
+{# https://mozilla.github.io/nunjucks/  NUNJUCKS #} 
+{% extends "./base.njk" %} {# hereda de base #}
+{# super() traerme los hijos que tiene ese #}
+{% block title %} Home Page - {{super()}} {% endblock %}
+
+
+{% block content %}
+    {# variables #}
+    {{ "hola mundo" }}
+    {{ 1 + 2}}
+    {{ true }} 
+    <hr>
+
+    {# extra variables #}
+    {{["hola","mundo"] | join(",")}} {#  le pone en comas #}
+    {{"hola" | replace("hola","adios")}} {#  cambia #}
+    {{ "hola" | capitalize }} {#  Hola #}
+    {{ "hola" | upper }} {#  Hola #}
+    {{ "hola" | dump }} {#  JSON.stringify() #}
+
+     {# crear variables #}
+     {% set nombre = "Vigilio" %}
+    <span>{{nombre}}</span> 
+    {# condicionales #}
+    {% if true %}
+        <h1>Hola mundo</h1>
+    {% elif false %}
+        <h3>elif</h3>
+    {% else %}
+        <h3>else</h3>
+    {% endif %}
+
+    
+    {% if false or true%} {# no funciona || #}
+        jajaj
+    {% endif %}
+
+    {{  "verdadero entonces" if true else "falso"}} {# ternario #}
+
+    {# bucle #}
+    <ul>
+        {% for item in [1,2,3,4] %}
+            <li>{{item}}  | {{loop.index}}</li> {# loop.index obtener indice #}
+        {% else %}
+            <span>No hay items</span>
+        {% endfor %}
+    </ul>
+
+    {# bucle 2 #}
+    <ul>
+        {% for item in [{nombre:"Yonatan"},{nombre:"Robert"},{nombre:"Abel"}] %}
+            <li>{{item.nombre}}</li> {# obtener indice #}
+        {% else %}
+            <span>No hay items</span>
+        {% endfor %}
+    </ul>
+   
+    {# components #}
+    {% include "./components/example.njk"%}
+    {# o tambien puedes #}
+    {% from "./components/example2.njk"  import componenteprueba, componenteprueba2 %} {# puedes crear un archivo y poner funciones de componentes y usarlo #}
+    {{ componenteprueba() }}
+    {{ componenteprueba2(1,{hola:"mundo"},[1,2,3]) }}
+
+    {# script #}
+    {% set test ="Hola" %}
+    <script>
+        // si lee variable 
+        const nombre = "{{test}}";
+        console.log(nombre);
+
+    </script>
+
+    {# react #}
+    {% set user = {id:1,nombre:"yonatan"}%}
+    <example :person="{{user | dump }}"></example> {# ya no es JSON.stringify() #}
+   
+{% endblock %}

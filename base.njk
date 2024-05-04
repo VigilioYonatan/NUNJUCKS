@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# si no lleva title la pagina Home DEFECTO #}
+    <title>{% block title %}Home{% endblock %}</title>
+    {{ vite | safe }} {# imprime codigo de html | safe#}
+</head>
+<body>
+    <header>this is a header</header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <header>this is a footer</header>
+</body>
+</html>

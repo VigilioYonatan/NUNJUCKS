@@ -1,0 +1,10 @@
+
+{% macro componenteprueba() %}
+    <h2>Este es un componente de prueba</h2>
+{% endmacro %}
+
+{% macro componenteprueba2(numero,objeto,array) %}
+    <h2>Numero: {{numero}}</h2>
+    <h2>Objeto: {{ objeto | dump }}</h2> {# JSON.stringify() #}
+    <h2>array: {{array}}</h2>
+{% endmacro %}
